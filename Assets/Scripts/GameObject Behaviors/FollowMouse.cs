@@ -4,6 +4,8 @@ public class FollowMouse : MonoBehaviour
 {
     private Rigidbody rb;
 
+    Vector3 mousePosition; //tmp
+
     private void Start()
     {
         rb = GetComponent<Rigidbody>() as Rigidbody;
@@ -16,6 +18,10 @@ public class FollowMouse : MonoBehaviour
 
     private void Turn()
     {
+        mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        mousePosition.y = rb.gameObject.transform.position.y;
+        transform.LookAt(mousePosition);
+        /*
         // Create a ray from the mouse cursor on screen in the direction of the camera.
         Ray camRay = Camera.main.ScreenPointToRay(Input.mousePosition);
 
@@ -37,5 +43,6 @@ public class FollowMouse : MonoBehaviour
             // Set the player's rotation to this new rotation.
             rb.MoveRotation(newRotation);
         }
+        */
     }
 }
