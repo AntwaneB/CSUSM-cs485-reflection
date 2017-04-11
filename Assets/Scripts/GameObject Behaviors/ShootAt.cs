@@ -2,23 +2,23 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ShootPlayer : MonoBehaviour {
-
-    public float fireCooldown;
-
-    private GameObject player;
+public class ShootAt : MonoBehaviour
+{
+    public GameObject target;
+    public float fireCooldown = 1;
 
     private float nextFire;
 
     private GameObject dynamicsHolder;
 
-    void Start () {
-        player = GameObject.FindWithTag("Player");
+    private void Start()
+    {
         dynamicsHolder = GameObject.FindWithTag("DYNAMICS_HOLDER");
     }
 	
-	void Update () {
-        this.transform.LookAt(player.transform);
+	void Update()
+    {
+        this.transform.LookAt(target.transform);
         if (Time.time > nextFire)
         {
             nextFire = Time.time + fireCooldown;

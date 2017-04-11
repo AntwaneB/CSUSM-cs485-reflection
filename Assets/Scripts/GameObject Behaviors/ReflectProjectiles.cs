@@ -4,11 +4,6 @@ using UnityEngine;
 
 public class ReflectProjectiles : MonoBehaviour
 {
-    private void Start()
-    {
-
-    }
-
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("PROJECTILE"))

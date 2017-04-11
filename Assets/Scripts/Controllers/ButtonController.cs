@@ -8,7 +8,8 @@ public class ButtonController : MonoBehaviour
 
     public Material depressedMat;
     public Material extendedMat;
-    Renderer ren;
+
+    private Renderer ren;
 
     private bool isDepressed;
     private float depressAmount;

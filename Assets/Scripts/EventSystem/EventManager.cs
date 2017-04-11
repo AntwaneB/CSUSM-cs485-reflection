@@ -19,7 +19,7 @@ namespace EventSystem
 
         private Dictionary<EventListener, HashSet<Type>> listeners;
 
-        public EventManager()
+        private EventManager()
         {
             listeners = new Dictionary<EventListener, HashSet<Type>>();
         }
