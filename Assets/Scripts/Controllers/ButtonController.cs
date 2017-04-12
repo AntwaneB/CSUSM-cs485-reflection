@@ -11,14 +11,14 @@ public class ButtonController : MonoBehaviour
 
     private Renderer ren;
 
-    private bool isDepressed;
+    private bool depressed;
     private float depressAmount;
     private Vector3 extendedPos;
     private Vector3 depressedPos;
 
     private void Start()
     {
-        isDepressed = false;
+        depressed = false;
         depressAmount = 0.5f; //Default
         extendedPos = transform.localPosition;
         depressedPos = extendedPos;
@@ -33,7 +33,7 @@ public class ButtonController : MonoBehaviour
         if (other.CompareTag("PROJECTILE"))
         {
             other.gameObject.SetActive(false);
-            if (!isDepressed)
+            if (!depressed)
             {
                 Depress();
             }
@@ -46,23 +46,23 @@ public class ButtonController : MonoBehaviour
 
     private void Depress()
     {
-        if (isDepressed == false)
+        if (depressed == false)
         {
-            isDepressed = true;
+            depressed = true;
             transform.localPosition = depressedPos;
             ren.material = depressedMat;
-            EventManager.get().Notify(new ButtonPressedEvent(isDepressed, this.gameObject));
+            EventManager.get().Notify(new ButtonPressedEvent(depressed, this.gameObject));
         }
     }
 
     private void Unpress()
     {
-        if (isDepressed == true)
+        if (depressed == true)
         {
-            isDepressed = false;
+            depressed = false;
             transform.localPosition = extendedPos;
             ren.material = extendedMat;
-            EventManager.get().Notify(new ButtonPressedEvent(isDepressed, this.gameObject));
+            EventManager.get().Notify(new ButtonPressedEvent(depressed, this.gameObject));
         }
     }
 }
