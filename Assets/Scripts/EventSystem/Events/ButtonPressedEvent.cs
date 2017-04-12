@@ -5,12 +5,12 @@ using UnityEngine;
 public class ButtonPressedEvent : EventSystem.Event
 {
     public bool Pressed { get; set; }
-    public string Name { get; set; }
+    public GameObject GameObject { get; set; }
 
-    public ButtonPressedEvent(bool pressed, string name)
+    public ButtonPressedEvent(bool pressed, GameObject gameObject)
     {
         Pressed = pressed;
-        Name = name;
+        GameObject = gameObject;
     }
 
 }

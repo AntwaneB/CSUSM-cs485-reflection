@@ -16,8 +16,7 @@ public class ButtonController : MonoBehaviour
     private Vector3 extendedPos;
     private Vector3 depressedPos;
 
-    // Use this for initialization
-    void Start()
+    private void Start()
     {
         isDepressed = false;
         depressAmount = 0.5f; //Default
@@ -28,19 +27,20 @@ public class ButtonController : MonoBehaviour
         ren = GetComponent<Renderer>();
         ren.material = extendedMat;
     }
-
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
-
+    
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("PROJECTILE"))
         {
             other.gameObject.SetActive(false);
-            Depress();
+            if (!isDepressed)
+            {
+                Depress();
+            }
+            else
+            {
+                Unpress();
+            }
         }
     }
 
@@ -51,9 +51,10 @@ public class ButtonController : MonoBehaviour
             isDepressed = true;
             transform.localPosition = depressedPos;
             ren.material = depressedMat;
-            EventManager.get().Notify(new ButtonPressedEvent(isDepressed, this.name));
+            EventManager.get().Notify(new ButtonPressedEvent(isDepressed, this.gameObject));
         }
     }
+
     private void Unpress()
     {
         if (isDepressed == true)
@@ -61,7 +62,7 @@ public class ButtonController : MonoBehaviour
             isDepressed = false;
             transform.localPosition = extendedPos;
             ren.material = extendedMat;
-            EventManager.get().Notify(new ButtonPressedEvent(isDepressed, this.name));
+            EventManager.get().Notify(new ButtonPressedEvent(isDepressed, this.gameObject));
         }
     }
 }
