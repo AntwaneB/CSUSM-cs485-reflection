@@ -1,9 +1,8 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ToggleOnBtnEvent : ButtonControlled
+public class ActivateOnBtnEvent : ButtonControlled
 {
     private void Start()
     {
@@ -19,6 +18,6 @@ public class ToggleOnBtnEvent : ButtonControlled
 
     protected override void deactivate()
     {
-        this.gameObject.SetActive(false);
+        return;
     }
 }

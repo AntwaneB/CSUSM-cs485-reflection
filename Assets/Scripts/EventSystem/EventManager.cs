@@ -1,9 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using UnityEngine;
 
 namespace EventSystem
 {
-    public class EventManager
+    public class EventManager : MonoBehaviour
     {
         private static EventManager instance;
 
@@ -11,7 +12,8 @@ namespace EventSystem
         {
             if (instance == null)
             {
-                instance = new EventManager();
+                GameObject gameObject = new GameObject();
+                instance = gameObject.AddComponent<EventManager>();
             }
 
             return instance;
@@ -19,7 +21,7 @@ namespace EventSystem
 
         private Dictionary<EventListener, HashSet<Type>> listeners;
 
-        private EventManager()
+        public EventManager()
         {
             listeners = new Dictionary<EventListener, HashSet<Type>>();
         }
@@ -39,7 +41,9 @@ namespace EventSystem
             foreach (var listener in listeners)
             {
                 if (listener.Value.Contains(e.GetType()))
+                {
                     listener.Key.OnNotify(e);
+                }
             }
         }
     }
