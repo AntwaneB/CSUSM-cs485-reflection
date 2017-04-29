@@ -5,6 +5,9 @@ using EventSystem;
 
 public class InputManager : MonoBehaviour
 {
+
+    private float axis;
+
     private void Update()
     {
         mouseClick();
@@ -13,6 +16,7 @@ public class InputManager : MonoBehaviour
     private void FixedUpdate()
     {
         playerMovement();
+        scrollWheel();
     }
 
     private void playerMovement()
@@ -33,5 +37,13 @@ public class InputManager : MonoBehaviour
 
         if (Input.GetMouseButtonDown(2))
             EventManager.get().Notify(new MouseClickEvent(KeyCode.Mouse2));
+    }
+    private void scrollWheel()
+    {
+        axis = Input.GetAxis("Mouse ScrollWheel");
+        if (axis != 0.0f)
+        {
+            EventManager.get().Notify(new WheelActionEvent(axis));
+        }
     }
 }
