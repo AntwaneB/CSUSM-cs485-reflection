@@ -13,7 +13,9 @@ public class CameraFollowingGameObject : MonoBehaviour, EventListener
     public float cameraMaxHeight;
     public float panScale;
 
-    private Vector3 panVector;
+    private Vector3 panOffset;
+
+    private Vector3 panCenter;
 
 
     private Vector3 offset;
@@ -34,7 +36,7 @@ public class CameraFollowingGameObject : MonoBehaviour, EventListener
     private void LateUpdate()
     {
         Pan();
-        transform.position = objectToFollow.transform.position + offset + panVector;
+        transform.position = objectToFollow.transform.position + offset + panOffset;
     }
 
     public void OnNotify(EventSystem.Event e)
@@ -47,6 +49,7 @@ public class CameraFollowingGameObject : MonoBehaviour, EventListener
         }
     }
 
+    //Code to zoom in or out with the mouse wheel
     private void Zoom(float axis)
     {
         offset += transform.forward * axis * zoomScale;
@@ -59,8 +62,25 @@ public class CameraFollowingGameObject : MonoBehaviour, EventListener
             offset -= transform.forward * axis * zoomScale;
         }
     }
+
+    //Code to pan when holding down mouse
     private void Pan()
     {
+        if(Input.GetMouseButtonDown(2))
+        {
+            panCenter = Input.mousePosition;
+        }
+        if (Input.GetMouseButton(2))
+        {
+            panOffset = (Input.mousePosition - panCenter) * panScale;
+            panOffset = new Vector3(panOffset.x, 0, panOffset.y);
+        }
+        if ( Input.GetMouseButtonUp(2))
+        {
+            panOffset = new Vector3(0, 0, 0);
+        }
+        //Old Code for border pan
+        /*
         float panX;
         float panY;
         float panBorder = 8;
@@ -89,5 +109,6 @@ public class CameraFollowingGameObject : MonoBehaviour, EventListener
             panY = 0;
         }
         panVector = new Vector3(panX, 0, panY);
+        */
     }
 }
