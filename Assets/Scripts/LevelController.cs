@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using EventSystem;
 using System;
@@ -10,7 +11,9 @@ public class LevelController : MonoBehaviour, EventListener
     {
         EventManager.get().Subscribe(this, new HashSet<Type>
         {
-            typeof(RespawnHitEvent)
+            typeof(RespawnHitEvent),
+            typeof(EndReachedEvent),
+            typeof(ResetRequestedEvent)
         });
     }
 
@@ -20,10 +23,42 @@ public class LevelController : MonoBehaviour, EventListener
         {
             resetLevel();
         }
+        else if (e is EndReachedEvent)
+        {
+            finishLevel();
+        }
+        else if (e is ResetRequestedEvent)
+        {
+            resetLevel();
+        }
     }
 
     private void resetLevel()
     {
+        Time.timeScale = 1;
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex, LoadSceneMode.Single);
+    }
+
+    private void finishLevel()
+    {
+        StartCoroutine(animateLevelEnd());
+    }
+
+    private IEnumerator animateLevelEnd()
+    {
+        float lastTime = Time.realtimeSinceStartup;
+        float timer = 0.0f;
+
+        float animationDuration = 2.0f;
+
+        while (timer < animationDuration)
+        {
+            Time.timeScale = Mathf.Lerp(1, 0, timer / animationDuration);
+            timer += (Time.realtimeSinceStartup - lastTime);
+            lastTime = Time.realtimeSinceStartup;
+            yield return null;
+        }
+
+        Time.timeScale = 0;
     }
 }
