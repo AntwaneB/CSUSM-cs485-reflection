@@ -18,6 +18,12 @@ public class ReflectProjectiles : MonoBehaviour
             otherRb.velocity = new Vector3(reflection.x * lateralSpeed, 0, reflection.z * lateralSpeed);
 
             other.transform.forward = reflection;
+
+            AudioSource audioSource = GetComponent<AudioSource>();
+            if (audioSource != null)
+            {
+                audioSource.Play();
+            }
         }
     }
 }

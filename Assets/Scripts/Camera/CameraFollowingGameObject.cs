@@ -23,6 +23,9 @@ public class CameraFollowingGameObject : MonoBehaviour
 
     private void LateUpdate()
     {
+        if (objectToFollow == null)
+            return;
+
         pan();
         follow();
     }

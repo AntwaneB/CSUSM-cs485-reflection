@@ -15,6 +15,7 @@ public class DamagedOnHit : MonoBehaviour
         currentHealth = startingHealth;
     }
 
+    // For the player it requires to have another collider set as trigger alongside the default collider for physics
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("PROJECTILE"))

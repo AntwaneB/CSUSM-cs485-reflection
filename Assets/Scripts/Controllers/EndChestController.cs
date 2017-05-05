@@ -43,6 +43,8 @@ public class EndChestController : MonoBehaviour, EventListener
 
             Animation animation = this.GetComponent<Animation>();
             animation.Play("open");
+            AudioSource audioSource = this.GetComponent<AudioSource>();
+            audioSource.Play();
 
             yield return new WaitForSeconds(animation.clip.length);
 
