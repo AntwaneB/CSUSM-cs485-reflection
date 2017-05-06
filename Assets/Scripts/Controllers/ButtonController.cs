@@ -48,6 +48,9 @@ public class ButtonController : MonoBehaviour {
     {
         if (depressed == false)
         {
+            AudioSource audioSource = GetComponent<AudioSource>();
+            audioSource.Play();
+
             depressed = true;
             transform.localPosition = depressedPos;
             ren.material = depressedMat;

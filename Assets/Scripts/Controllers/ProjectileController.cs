@@ -11,8 +11,18 @@ public class ProjectileController : MonoBehaviour
         dynamicsHolder = GameObject.FindWithTag("DYNAMICS_HOLDER");
     }
 
-    private void OnDestroy()
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Untagged"))
+        {
+            dieByCollision();
+        }
+    }
+
+    private void dieByCollision()
     {
         Instantiate(Resources.Load("ProjectileFlash"), transform.position, transform.rotation, dynamicsHolder.transform);
+
+        GameObject.Destroy(this.gameObject);
     }
 }

@@ -7,6 +7,7 @@ public class InputManager : MonoBehaviour
 {
     private void Update()
     {
+        keyboardKey();
         mouseClick();
         scrollWheel();
     }
@@ -22,6 +23,12 @@ public class InputManager : MonoBehaviour
         float moveVertical = Input.GetAxis("Vertical");
 
         EventManager.get().Notify(new MovementInputEvent(moveHorizontal, moveVertical));
+    }
+
+    private void keyboardKey()
+    {
+        if (Input.GetKey(KeyCode.R))
+            EventManager.get().Notify(new ResetRequestedEvent());
     }
 
     private void mouseClick()

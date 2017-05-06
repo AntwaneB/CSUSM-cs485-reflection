@@ -8,8 +8,6 @@ public class PlayerController : MonoBehaviour, EventListener
     public GameObject character;
     public GameObject shield;
 
-    private GameObject dynamicsHolder;
-
     private void Start()
     {
         EventManager.get().Subscribe(this, new HashSet<Type>
@@ -17,8 +15,6 @@ public class PlayerController : MonoBehaviour, EventListener
             typeof(MouseClickEvent),
             typeof(UnitDiedEvent)
         });
-
-        dynamicsHolder = GameObject.FindWithTag("DYNAMICS_HOLDER");
     }
 
     public void OnNotify(EventSystem.Event e)
@@ -49,16 +45,6 @@ public class PlayerController : MonoBehaviour, EventListener
 
     private void die()
     {
-        GameObject.Destroy(this.gameObject);
+        //GameObject.Destroy(this.gameObject);
     }
-
-    /*
-    private void fire()
-    {
-        Vector3 projectilePosition = transform.position;
-        Quaternion projectileRotation = Quaternion.Euler(0, transform.eulerAngles.y, 0);
-
-        Instantiate(Resources.Load("LaserBolt"), projectilePosition, projectileRotation, dynamicsHolder.transform);
-    }
-    */
 }
