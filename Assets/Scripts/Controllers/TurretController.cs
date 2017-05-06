@@ -28,6 +28,7 @@ public class TurretController : MonoBehaviour, EventListener
 
     private void die()
     {
-        GameObject.Destroy(this.gameObject);
+        gameObject.SetActive(false);
+        //GameObject.Destroy(this.gameObject);
     }
 }

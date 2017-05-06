@@ -6,7 +6,6 @@ public class ShootAt : MonoBehaviour
 {
     public GameObject target;
     public float fireCooldown = 1;
-    public Transform shootSpawn;
 
     private float nextFire;
 
@@ -16,8 +15,6 @@ public class ShootAt : MonoBehaviour
     {
         dynamicsHolder = GameObject.FindWithTag("DYNAMICS_HOLDER");
 
-        if (shootSpawn == null)
-            shootSpawn = this.transform;
     }
 	
 	void Update()
@@ -35,7 +32,7 @@ public class ShootAt : MonoBehaviour
 
     private void fire()
     {
-        Vector3 projectilePosition = shootSpawn.position;
+        Vector3 projectilePosition = transform.position + transform.forward;
         Quaternion projectileRotation = Quaternion.Euler(0, transform.eulerAngles.y, 0);
 
         Instantiate(Resources.Load("LaserBolt"), projectilePosition, projectileRotation, dynamicsHolder.transform);

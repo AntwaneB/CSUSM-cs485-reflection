@@ -30,7 +30,10 @@ public class EMPController : MonoBehaviour, EventListener {
                 UnitDiedEvent unitDied = e as UnitDiedEvent;
                 foreach (GameObject turret in connectedTurrets)
                 {
-                    EventManager.get().Notify(new UnitDiedEvent(turret));
+                    if (turret != null)
+                    {
+                        EventManager.get().Notify(new UnitDiedEvent(turret));
+                    }
                 }
                 die();
             }
@@ -39,6 +42,7 @@ public class EMPController : MonoBehaviour, EventListener {
 
     private void die()
     {
-        GameObject.Destroy(this.gameObject);
+        gameObject.SetActive(false);
+        //GameObject.Destroy(this.gameObject);
     }
 }
