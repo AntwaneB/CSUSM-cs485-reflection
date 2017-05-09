@@ -15,6 +15,8 @@ public class LevelController : MonoBehaviour, EventListener
             typeof(EndReachedEvent),
             typeof(ResetRequestedEvent)
         });
+
+        Time.timeScale = 1;
     }
 
     public void OnNotify(EventSystem.Event e)
@@ -23,25 +25,26 @@ public class LevelController : MonoBehaviour, EventListener
         {
             resetLevel();
         }
-        else if (e is EndReachedEvent)
-        {
-            finishLevel();
-        }
         else if (e is ResetRequestedEvent)
         {
             resetLevel();
+        }
+        else if (e is EndReachedEvent)
+        {
+            StartCoroutine(finishLevel());
         }
     }
 
     private void resetLevel()
     {
-        Time.timeScale = 1;
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex, LoadSceneMode.Single);
+        GlobalLevelsManager.get().reload();
     }
 
-    private void finishLevel()
+    private IEnumerator finishLevel()
     {
-        StartCoroutine(animateLevelEnd());
+        yield return StartCoroutine(animateLevelEnd());
+
+        GlobalLevelsManager.get().next();
     }
 
     private IEnumerator animateLevelEnd()
