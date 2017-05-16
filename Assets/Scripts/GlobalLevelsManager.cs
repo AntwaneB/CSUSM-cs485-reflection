@@ -25,6 +25,7 @@ public class GlobalLevelsManager
         levels = new List<string>();
         levels.Add("0_tutorial");
         levels.Add("1_enemies");
+		levels.Add ("2_emp");
 
         currentLevel = 0;
     }
